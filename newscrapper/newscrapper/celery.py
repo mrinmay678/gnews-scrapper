@@ -6,17 +6,18 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'newscrapper.settings')
 
 app = Celery('newscrapper')
 
-app.config_from_object('django.conf:settings')
+app.conf.time_zone='UTC'
 
-app.conf.schedule_beat = {
+app.config_from_object('django.conf:settings', namespace='CELERY')
+
+app.conf.beat_schedule = {
     'every_1_hour':{
         'task':'scrapper.tasks.newsUpdate',
-        'schedule':crontab(hour='*', minute='1'),
-        'args':()
+        'schedule':15,
+        # 'schedule':crontab(hour='*', minute='1'),
     }
 }
 
-app.conf.time_zone='UTC'
 
 app.autodiscover_tasks()
 

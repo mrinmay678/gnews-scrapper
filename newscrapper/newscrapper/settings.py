@@ -104,3 +104,13 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+'''
+CELERY
+'''
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_BEAT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER='json'
+CELERY_TIMEZONE = 'UTC'
